@@ -30,6 +30,15 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Test endpoint to check email configuration
+app.get('/api/test/email-config', (req, res) => {
+  res.json({
+    emailConfigured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASSWORD),
+    emailUser: process.env.EMAIL_USER ? process.env.EMAIL_USER.substring(0, 3) + '***' : 'not set',
+    nodeEnv: process.env.NODE_ENV,
+  });
+});
+
 // Socket.io
 initializeSocket(io);
 
